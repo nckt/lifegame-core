@@ -2,37 +2,16 @@
 
 __author__ = "nckt <galikuson@gmail.com>"
 
+import random
+
 class earth :
-"""
-Life game field.
-"""
-    def __init__(self, generation, step, width, height) :
+    """
+    Life game field.
+    """
+    def __init__(self, generation = 1, step = 1, field = []) :
         """
-        Constructor. Create field randomly from size parameter.
+        Constructor.
 
-        @param self
-        @param int generation
-        @param int step
-        @param int width  Field width.
-        @param int height Field height.
-        """
-
-        self.generation = generation
-        self.step       = step
-        self.field      = []
-
-        # Create field randomly.
-        for y in range(height) :
-            self.field.append([])
-
-            for x in range(width) :
-                self.field[y].append( bool( random.getrandbits(1) ) )
-
-    def __init__(self, generation, step, field) :
-        """
-        Constructor. Create field from parameter.
-
-        @param self
         @param int  generation
         @param int  step
         @param list field
@@ -42,7 +21,20 @@ Life game field.
         self.step       = step
         self.field      = field
 
-    def getAroundLifeCount(argX, argY) :
+    def initField(self, width, height) :
+        """
+        Create field randomly from size parameter.
+        @param int field width.
+        @param int field height.
+        """
+
+        for y in range(height) :
+            self.field.append([])
+
+            for x in range(width) :
+                self.field[y].append( bool( random.getrandbits(1) ) )
+
+    def getAroundLifeCount(self, argX, argY) :
         """
         Count living around received coordinate.
 
@@ -50,20 +42,34 @@ Life game field.
         @param  int y coordinate.
         @return int Count.
         """
-
+        # debug #
+        print("======")
+        # debug #
         count = 0
 
-        for y in range(argY - 1, 3) :
-            for x in range(argX - 1, 3):
+        for y in range(argY - 1, argY + 2) :
+            for x in range(argX - 1, argX + 2):
+                # debug #
+                print([x,y])
+                # debug #
                 if y == argY and x == argX :
+                    # debug #
+                    print("skip!")
+                    # debug #
                     continue
 
-                if __isLiving(x, y) :
-                    count++
+                if self.__isLiving(x, y) :
+                    # debug #
+                    print("living. count++")
+                    # debug #
+                    count += 1
 
+                # debug #
+                print("-----")
+                # debug #
         return count
 
-    def __isLiving(x, y) :
+    def __isLiving(self, x, y) :
         """
         If received coordinate life is living, returns true.
 
@@ -73,7 +79,7 @@ Life game field.
         """
 
         # invalid parameter.
-        if y < 0 or x < 0 or len(self.field) < y or len(self.field[y]) < x :
-            return false
+        if y < 0 or x < 0 or len(self.field) <= y or len(self.field[y]) <= x :
+            return False
 
         return self.field[y][x]
