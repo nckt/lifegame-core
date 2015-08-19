@@ -9,7 +9,7 @@ import unittest
 import earth
 import logging
 
-class testEarth(unittest.TestCase) :
+class earthTest(unittest.TestCase) :
 
     def testInitEarth(self) :
         myEarth = earth.earth()
@@ -31,7 +31,7 @@ class testEarth(unittest.TestCase) :
         # × ○ ×
         # × ○ ★
         #
-        # ★...test target, ○...living cell, ×...dead cesll
+        # ★...test target, ○...living cell, ×...dead cell
         # expects -> 2, 2
 
         field = [
