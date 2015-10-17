@@ -72,7 +72,7 @@ class earthTest(unittest.TestCase) :
             [False, True,  False]
         ]
 
-        myEarth = earth.earth(1, 1, Field)
+        myEarth = earth.earth(1, 1, field)
         myEarth.nextTurn()
 
         self.assertEqual(
@@ -110,7 +110,7 @@ class earthTest(unittest.TestCase) :
             [False, True,  True]
         ]
 
-        myEarth = earth.earth(1, 1, Field)
+        myEarth = earth.earth(1, 1, field)
         myEarth.nextTurn()
 
         self.assertEqual(
