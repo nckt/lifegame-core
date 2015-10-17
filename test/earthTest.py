@@ -39,11 +39,87 @@ class earthTest(unittest.TestCase) :
             [False, True,  False],
             [False, True,  False]
         ]
-        myEarth = earth.earth(0, 0, field)
+        myEarth = earth.earth(1, 1, field)
 
         self.assertEqual(
             [myEarth.getAroundLifeCount(0, 0), myEarth.getAroundLifeCount(2, 2)],
             [2, 2]
+        )
+
+    def testDeadCellsNextTurn(self) :
+        # If 3 living cells exist around dead cell, birth living cell.
+        # Otherwise, dead.
+        #
+        # [before]
+        # × × ○
+        # ○ × ○
+        # × ○ ×
+        #
+        # [after]
+        # × ○ ×
+        # × × ○
+        # × ○ ×
+
+        field = [
+            [False, False, True],
+            [True,  False, True],
+            [False, True,  False]
+        ]
+
+        nextTurnField = [
+            [False, True,  False],
+            [False, False, True],
+            [False, True,  False]
+        ]
+
+        myEarth = earth.earth(1, 1, Field)
+        myEarth.nextTurn()
+
+        self.assertEqual(
+            myEarth.step,
+            2
+        )
+        self.assertEqual(
+            myEarth.field,
+            nextTurnField
+        )
+
+    def testLivingCellsNextTurn(self) :
+        # If 2 or 3 living cells exist around living cell, the cell survive.
+        # Otherwise, dead.
+        #
+        # [before]
+        # ○ × ○
+        # × ○ ○
+        # × ○ ×
+        #
+        # [after]
+        # × × ○
+        # ○ × ○
+        # × ○ ○
+
+        field = [
+            [True,  False, True],
+            [False, True,  True],
+            [False, True,  False]
+        ]
+
+        nextTurnField = [
+            [False, False, True],
+            [True,  False, True],
+            [False, True,  True]
+        ]
+
+        myEarth = earth.earth(1, 1, Field)
+        myEarth.nextTurn()
+
+        self.assertEqual(
+            myEarth.step,
+            2
+        )
+        self.assertEqual(
+            myEarth.field,
+            nextTurnField
         )
 
 if __name__ == "__main__":
