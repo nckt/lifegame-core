@@ -6,23 +6,23 @@ import sys,os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../src/model')
 
 import unittest
-import earth
+import game
 import logging
 
-class earthTest(unittest.TestCase) :
+class gameTest(unittest.TestCase) :
 
-    def testInitEarth(self) :
-        myEarth = earth.earth()
+    def testInitField(self) :
+        myGame = game.game()
 
-        myEarth.initField(3, 2)
+        myGame.initField(3, 2)
 
         # Check field was created randomly with manpower (damn!)
         logging.basicConfig()
         log = logging.getLogger("LOG")
-        log.warning(myEarth.field)
+        log.warning(myGame.field)
 
         self.assertEqual(
-            [ len(myEarth.field[0]), len(myEarth.field) ],
+            [ len(myGame.field[0]), len(myGame.field) ],
             [3, 2]
         )
 
@@ -39,10 +39,10 @@ class earthTest(unittest.TestCase) :
             [False, True,  False],
             [False, True,  False]
         ]
-        myEarth = earth.earth(1, 1, field)
+        myGame = game.game(1, 1, field)
 
         self.assertEqual(
-            [myEarth.getAroundLifeCount(0, 0), myEarth.getAroundLifeCount(2, 2)],
+            [myGame.getAroundLifeCount(0, 0), myGame.getAroundLifeCount(2, 2)],
             [2, 2]
         )
 
@@ -72,15 +72,15 @@ class earthTest(unittest.TestCase) :
             [False, True,  False]
         ]
 
-        myEarth = earth.earth(1, 1, field)
-        myEarth.nextTurn()
+        myGame = game.game(1, 1, field)
+        myGame.nextTurn()
 
         self.assertEqual(
-            myEarth.step,
+            myGame.step,
             2
         )
         self.assertEqual(
-            myEarth.field,
+            myGame.field,
             nextTurnField
         )
 
@@ -110,15 +110,15 @@ class earthTest(unittest.TestCase) :
             [False, True,  True]
         ]
 
-        myEarth = earth.earth(1, 1, field)
-        myEarth.nextTurn()
+        myGame = game.game(1, 1, field)
+        myGame.nextTurn()
 
         self.assertEqual(
-            myEarth.step,
+            myGame.step,
             2
         )
         self.assertEqual(
-            myEarth.field,
+            myGame.field,
             nextTurnField
         )
 
